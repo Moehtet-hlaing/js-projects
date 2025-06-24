@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Heart Trail</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 20px;
+      pointer-events: none;
+      animation: float 1s ease-out forwards;
+    }
+
+    @keyframes float {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  let enableHearts = false;
+
+  // Enable heart trail after 3 seconds
+  setTimeout(() => {
+    enableHearts = true;
+  }, 3000);
+
+  document.addEventListener("mousemove", (e) => {
+    if (!enableHearts) return;
+
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "❤️";
+
+    const size = Math.random() * 20 + 10; // size between 10px and 30px
+    heart.style.fontSize = size + "px";
+
+    heart.style.left = e.pageX + "px";
+    heart.style.top = e.pageY + "px";
+
+    document.body.appendChild(heart);
+
+    // Remove heart after animation
+    setTimeout(() => {
+      heart.remove();
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>
